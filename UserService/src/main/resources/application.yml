@@ -27,6 +27,28 @@ spring:
   profiles:
     active: default
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://integrator-2454740.okta.com/oauth2/default
+
+      client:
+        registration:
+          my-internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oaza09sfpI30AuD6697
+            client-secret: yrGPTyLpHtRbYnpBAxVMCTMDn5FDmuls6_mB0e9cNI63XA_p5_5CAsVfljPjiHJQ
+#          okta:
+#            client-id: 0oaza09sfpI30AuD6697
+#            client-secret: yrGPTyLpHtRbYnpBAxVMCTMDn5FDmuls6_mB0e9cNI63XA_p5_5CAsVfljPjiHJQ
+#            scope: openid, profile, email
+
+        provider:
+          okta:
+            issuer-uri: https://integrator-2454740.okta.com/oauth2/default
 
 eureka:
   instance:
