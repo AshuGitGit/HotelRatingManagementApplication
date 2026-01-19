@@ -9,7 +9,6 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
@@ -37,7 +36,9 @@ public class MyConfig {
                 oAuth2AuthorizedClientRepository
         )));
 
-        return new RestTemplate();
+        restTemplate.setInterceptors(interceptors);
+
+        return restTemplate;
     }
 
     //Bean of OAuth2AuthorizedClientManager
