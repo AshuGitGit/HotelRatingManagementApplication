@@ -46,16 +46,22 @@ spring:
             uri: lb://USER-SERVICE
             predicates:
               - Path=/users/**
+            filters:
+              - TokenRelay
 
           - id: RATING-SERVICE
             uri: lb://RATING-SERVICE
             predicates:
               - Path=/ratings/**
+            filters:
+              - TokenRelay
 
           - id: HOTEL-SERVICE
             uri: lb://HOTEL-SERVICE
             predicates:
               - Path=/hotels/**,/staffs/**
+            filters:
+              - TokenRelay
 
 server:
   port: 8084

@@ -24,7 +24,7 @@ public class HotelController {
         return ResponseEntity.status(HttpStatus.CREATED).body(hotel1);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_internal')")
+    @PreAuthorize("hasAuthority('SCOPE_Internal')")
     @GetMapping("/{hotelId}")
     public ResponseEntity<Hotel> getHotelById(@PathVariable String hotelId) {
         Hotel hotel = hotelService.getHotelById(hotelId);
