@@ -6,6 +6,7 @@ import com.lcwd.hotel.service.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,15 +24,29 @@ public class HotelController {
         return ResponseEntity.status(HttpStatus.CREATED).body(hotel1);
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_internal')")
     @GetMapping("/{hotelId}")
     public ResponseEntity<Hotel> getHotelById(@PathVariable String hotelId) {
         Hotel hotel = hotelService.getHotelById(hotelId);
         return ResponseEntity.status(HttpStatus.OK).body(hotel);
     }
 
+    /*@GetMapping("/{hotelId}")
+    public ResponseEntity<Hotel> getHotelById(@PathVariable String hotelId) {
+        Hotel hotel = hotelService.getHotelById(hotelId);
+        return ResponseEntity.status(HttpStatus.OK).body(hotel);
+    }*/
+
+    //@PreAuthorize("hasAnyAuthority('Admin')")
     @GetMapping("/getAll")
     public ResponseEntity<List<Hotel>> getAllHotels() {
         List<Hotel> hotels = hotelService.getAllHotels();
         return ResponseEntity.status(HttpStatus.OK).body(hotels);
     }
+
+   /* @GetMapping("/getAll")
+    public ResponseEntity<List<Hotel>> getAllHotels() {
+        List<Hotel> hotels = hotelService.getAllHotels();
+        return ResponseEntity.status(HttpStatus.OK).body(hotels);
+    }*/
 }

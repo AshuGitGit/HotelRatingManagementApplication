@@ -23,6 +23,12 @@ spring:
     livereload:
       enabled: true
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://integrator-2454740.okta.com/oauth2/default
+
 eureka:
   instance:
     prefer-ip-address: true

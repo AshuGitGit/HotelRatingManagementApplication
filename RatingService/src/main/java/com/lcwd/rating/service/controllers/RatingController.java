@@ -5,6 +5,7 @@ import com.lcwd.rating.service.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +18,16 @@ public class RatingController {
     private RatingService ratingService;
 
     //create Rating
+    //@PreAuthorize("hasAnyAuthority('Admin')")
     @PostMapping("/createRating")
     public ResponseEntity<Rating> createRating(@RequestBody Rating rating) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.createRating(rating));
     }
+
+    /*@PostMapping("/createRating")
+    public ResponseEntity<Rating> createRating(@RequestBody Rating rating) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.createRating(rating));
+    }*/
 
     //get All Ratings
     @GetMapping("/getAll")
@@ -37,9 +44,16 @@ public class RatingController {
     }
 
     //get rating by UserId
+    @PreAuthorize("hasAuthority('SCOPE_Internal')")
     @GetMapping("/users/{userId}")
     public ResponseEntity<List<Rating>> getRatingsByUserId(@PathVariable String userId)
     {
         return ResponseEntity.status(HttpStatus.OK).body(ratingService.getRatingsByUserId(userId));
     }
+
+    /*@GetMapping("/users/{userId}")
+    public ResponseEntity<List<Rating>> getRatingsByUserId(@PathVariable String userId)
+    {
+        return ResponseEntity.status(HttpStatus.OK).body(ratingService.getRatingsByUserId(userId));
+    }*/
 }

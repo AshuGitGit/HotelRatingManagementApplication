@@ -9,7 +9,7 @@ spring:
           okta:
             client-id: 0oaza09sfpI30AuD6697
             client-secret: yrGPTyLpHtRbYnpBAxVMCTMDn5FDmuls6_mB0e9cNI63XA_p5_5CAsVfljPjiHJQ
-            scope: openid, profile, email
+            scope: openid, profile, email, Internal
         provider:
           okta:
             issuer-uri: https://integrator-2454740.okta.com/oauth2/default
@@ -71,5 +71,10 @@ eureka:
 
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
+    org:
+      springframework:
+        security: TRACE
+        security.oauth2: TRACE
+        cloud.gateway: DEBUG
+        web.server: DEBUG
 

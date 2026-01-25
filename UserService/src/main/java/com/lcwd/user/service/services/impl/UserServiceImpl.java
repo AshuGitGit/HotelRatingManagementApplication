@@ -49,18 +49,25 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
 
-        for (User user : users) {
-            //ArrayList<Rating> ratingsOfUser = restTemplate.getForObject("http://localhost:8083/ratings/users/" + user.getUserId(), ArrayList.class);
-            Rating[] ratings = ratingServiceClient.getAllRatingsByUserId(user.getUserId());
-            List<Rating> userRatings = Arrays.stream(ratings).toList();
+        try {
+            logger.info("Inside getAllUsers UserServiceImpl-------->");
 
-            List<Rating> userRatings2 = userRatings.stream().map(rating -> {
-                Hotel hotel = hotelServiceClient.getHotelById(rating.getHotelId());
-                rating.setHotel(hotel);
-                return rating;
-            }).collect(Collectors.toList());
+            for (User user : users) {
+                logger.info("Inside for Loop getAllUsers UserServiceImpl-------->");
+                //ArrayList<Rating> ratingsOfUser = restTemplate.getForObject("http://localhost:8083/ratings/users/" + user.getUserId(), ArrayList.class);
+                Rating[] ratings = ratingServiceClient.getAllRatingsByUserId(user.getUserId());
+                List<Rating> userRatings = Arrays.stream(ratings).toList();
 
-            user.setRatings(userRatings);
+                List<Rating> userRatings2 = userRatings.stream().map(rating -> {
+                    Hotel hotel = hotelServiceClient.getHotelById(rating.getHotelId());
+                    rating.setHotel(hotel);
+                    return rating;
+                }).collect(Collectors.toList());
+
+                user.setRatings(userRatings);
+            }
+        }catch (ResourceNotFoundException e){
+            logger.info("Inside catch getAllUsers UserServiceImpl-------->"+ e);
         }
 
         return users;

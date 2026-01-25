@@ -38,7 +38,7 @@ spring:
           my-internal-client:
             provider: okta
             authorization-grant-type: client_credentials
-            scope: internal
+            scope: Internal
             client-id: 0oaza09sfpI30AuD6697
             client-secret: yrGPTyLpHtRbYnpBAxVMCTMDn5FDmuls6_mB0e9cNI63XA_p5_5CAsVfljPjiHJQ
 #          okta:
@@ -97,3 +97,7 @@ resilience4j:
         limit-for-period: 2
         timeout-duration: 0s
 
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
